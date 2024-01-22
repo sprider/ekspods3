@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: ekspods3-job
+  namespace: ekspods3ns
+spec:
+  template:
+    metadata:
+      labels:
+        app: ekspods3
+    spec:
+      serviceAccountName: ekspods3svc
+      containers:
+      - name: ekspods3
+        image: josephvelliah/ekspods3:latest
+        env:
+        - name: AWS_S3_BUCKET_NAME
+          value: "k8s-eks-s3-bucket"
+      restartPolicy: Never
+  backoffLimit: 0
